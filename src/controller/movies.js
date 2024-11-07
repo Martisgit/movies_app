@@ -51,6 +51,20 @@ const GET_MOVIE_BY_ID = (req, res) => {
   return res.status(200).json({ movie: movie });
 };
 
+const UPDATE_MOVIE_BY_ID = (req, res) => {
+  const movie = movies.find((m) => m.id === req.params.id);
+
+  if (!movie) {
+    return res.status(404).json({ message: "movie does not exist" });
+  }
+
+  const index = movies.findIndex((t) => t.id === req.params.id);
+
+  movies[index] = { ...movies[index], ...req.body };
+
+  return res.status(200).json({ message: "movie was updated" });
+};
+
 const DELETE_MOVIE_BY_ID = (req, res) => {
   const movie = movies.find((m) => m.id === req.params.id);
 
@@ -73,4 +87,5 @@ export {
   GET_MOVIE_BY_ID,
   GET_RESPONSE,
   DELETE_MOVIE_BY_ID,
+  UPDATE_MOVIE_BY_ID,
 };
